@@ -1,0 +1,1 @@
+Creating a typing test website using only HTML, CSS, Javascript
