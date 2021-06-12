@@ -1,0 +1,9 @@
+.wordVerfiy{
+    font-size: 3rem;
+}
+.correct{
+    color: green;
+}
+.incorrect{
+    color: red;
+}
