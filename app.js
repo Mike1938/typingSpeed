@@ -46,7 +46,7 @@ const counter = () => {
 const checkWord = (word, count = countLocal, spaceHit = false) => {
     const spanWords = displayedWords[count].innerText.trim();
     const letter = word.length - 1;
-    console.log(word);
+    // console.log(word);
     if (spaceHit) {
         if (word === spanWords) {
             if (displayedWords[count].classList.contains("incorrect")) {
@@ -67,14 +67,17 @@ const checkWord = (word, count = countLocal, spaceHit = false) => {
     return 1
 }
 
-textInput.addEventListener("keydown", function (e) {
+
+textInput.addEventListener("input", function (e) {
+    wordWriten = this.value;
+    console.log(wordWriten)
     if (!startGame) {
         startGame = true
         timer = setInterval(counter, 1000);
     }
-    let wordWriten = textInput.value.trim();
-    if (e.keyCode === 32) {
+    if (e.data === " ") {
         countLocal += checkWord(wordWriten, countLocal, true);
+        wordWriten = "";
         nextWord();
     } else {
         checkWord(wordWriten);
