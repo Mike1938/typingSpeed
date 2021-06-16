@@ -44,33 +44,33 @@ const counter = () => {
 }
 
 const checkWord = (word, count = countLocal, spaceHit = false) => {
+    const trimedWord = word.trim()
+    const letter = trimedWord.length;
     const spanWords = displayedWords[count].innerText.trim();
-    const letter = word.length - 1;
-    // console.log(word);
     if (spaceHit) {
-        if (word === spanWords) {
+        if (trimedWord === spanWords) {
+            displayedWords[count];
             if (displayedWords[count].classList.contains("incorrect")) {
                 displayedWords[count].classList.toggle("incorrect");
+            } else {
+                displayedWords[count].classList.add("correct");
+                correctWords++
             }
-            displayedWords[count].classList.add("correct");
-            correctWords++
         } else {
             incorrectWords++
         }
         wordsTyped++;
-    } else if (spanWords[letter] !== word[letter]) {
+    } else if (spanWords.substring(0, letter) !== trimedWord) {
         displayedWords[count].classList.add("incorrect");
     } else {
         displayedWords[count].classList.remove("incorrect");
     }
-
     return 1
 }
 
 
 textInput.addEventListener("input", function (e) {
     wordWriten = this.value;
-    console.log(wordWriten)
     if (!startGame) {
         startGame = true
         timer = setInterval(counter, 1000);
