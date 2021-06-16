@@ -17,12 +17,21 @@
 
     </div>
     <div>
-        <input id="textInput" type="text">
-        <input checked="checked" value="60" name="secInput" type="radio">
-        <input value="30" name="secInput" type="radio">
+        <input id="textInput" type="text" autocomplete="off">
+        <select name="timer" id="timer">
+            <option value="60" selected>60</option>
+            <option value="30">30</option>
+        </select>
     </div>
     <div id="time">
         <p id="clock"></p>
+    </div>
+    <div id="results">
+        <ul>
+            <li>Correct Words: <span class="info"></span></li>
+            <li>Incorrect Words: <span class="info"></span></li>
+            <li>Words Type: <span class="info"></span></li>
+        </ul>
     </div>
     <script src="testWord.js"></script>
     <script src="app.js"></script>
