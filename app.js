@@ -25,8 +25,12 @@ const nextWord = () => {
         insertWord();
     }
     displayedWords[countLocal].classList.add("next");
-    if (displayedWords[countLocal - 1].classList.contains("next")) {
-        displayedWords[countLocal - 1].classList.remove("next");
+    try {
+        if (displayedWords[countLocal - 1].classList.contains("next")) {
+            displayedWords[countLocal - 1].classList.remove("next");
+        }
+    } catch {
+        console.log("No Words");
     }
     textInput.value = "";
 }
@@ -48,10 +52,15 @@ const counter = () => {
 }
 
 const checkWord = (word, count = countLocal, spaceHit = false) => {
+    if (word === " ") {
+        textInput.value = "";
+        return
+    };
     const trimedWord = word.trim()
     const letter = trimedWord.length;
     const spanWords = displayedWords[count].innerText.trim();
     if (spaceHit) {
+        countLocal++
         if (trimedWord === spanWords) {
             displayedWords[count];
             if (displayedWords[count].classList.contains("incorrect")) {
@@ -64,35 +73,42 @@ const checkWord = (word, count = countLocal, spaceHit = false) => {
             incorrectWords++
         }
         wordsTyped++;
+        nextWord();
     } else if (spanWords.substring(0, letter) !== trimedWord) {
         displayedWords[count].classList.add("incorrect");
     } else {
         displayedWords[count].classList.remove("incorrect");
     }
-    return 1
 }
 const reset = () => {
     countLocal = 0;
     wordsTyped = 0;
     correctWords = 0;
     incorrectWords = 0;
+    counting = secInputs.value;
+    results();
     startGame = false;
     textBlock.innerHTML = '';
     insertWord()
     clearInterval(timer);
     clock.innerText = counting;
+    textInput.disabled = false;
+    textInput.value = "";
 }
 resetBtn.addEventListener("click", reset);
+secInputs.addEventListener('change', reset)
 textInput.addEventListener("input", function (e) {
     wordWriten = this.value;
-    if (!startGame) {
+    if (wordWriten === " ") {
+        checkWord(wordWriten);
+    }
+    else if (!startGame) {
         startGame = true
         timer = setInterval(counter, 1000);
     }
     if (e.data === " ") {
-        countLocal += checkWord(wordWriten, countLocal, true);
+        checkWord(wordWriten, countLocal, true);
         wordWriten = "";
-        nextWord();
     } else {
         checkWord(wordWriten);
     }
@@ -105,6 +121,6 @@ const insertWord = () => {
         spanCreate.classList.add("wordVerfiy");
         textBlock.append(spanCreate);
     }
+    displayedWords[countLocal].classList.add("next");
 }
 insertWord()
-displayedWords[countLocal].classList.add("next");
