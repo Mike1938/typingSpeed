@@ -5,6 +5,7 @@ const timeBlock = document.getElementById("time");
 const wordInfo = document.querySelectorAll(".info")
 const clock = document.querySelector("#clock");
 const displayedWords = document.getElementsByClassName("wordVerfiy");
+const resetBtn = document.querySelector("#resetBtn");
 let countLocal = 0;
 let wordsTyped = 0;
 let correctWords = 0;
@@ -24,6 +25,9 @@ const nextWord = () => {
         insertWord();
     }
     displayedWords[countLocal].classList.add("next");
+    if (displayedWords[countLocal - 1].classList.contains("next")) {
+        displayedWords[countLocal - 1].classList.remove("next");
+    }
     textInput.value = "";
 }
 const results = () => {
@@ -67,8 +71,18 @@ const checkWord = (word, count = countLocal, spaceHit = false) => {
     }
     return 1
 }
-
-
+const reset = () => {
+    countLocal = 0;
+    wordsTyped = 0;
+    correctWords = 0;
+    incorrectWords = 0;
+    startGame = false;
+    textBlock.innerHTML = '';
+    insertWord()
+    clearInterval(timer);
+    clock.innerText = counting;
+}
+resetBtn.addEventListener("click", reset);
 textInput.addEventListener("input", function (e) {
     wordWriten = this.value;
     if (!startGame) {
@@ -83,7 +97,6 @@ textInput.addEventListener("input", function (e) {
         checkWord(wordWriten);
     }
 });
-
 
 const insertWord = () => {
     for (let i = 0; i < 20; i++) {
