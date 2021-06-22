@@ -6,6 +6,7 @@ const wordInfo = document.querySelectorAll(".info")
 const clock = document.querySelector("#clock");
 const displayedWords = document.getElementsByClassName("wordVerfiy");
 const resetBtn = document.querySelector("#resetBtn");
+const grossWPM = document.querySelector("#grossWPM");
 let countLocal = 0;
 let wordsTyped = 0;
 let correctWords = 0;
@@ -36,6 +37,13 @@ const nextWord = () => {
 }
 const results = () => {
     const info = [correctWords, incorrectWords, wordsTyped];
+    let gross = "";
+    if(secInputs.value === 30){
+        gross = Math.floor((wordsTyped/5)/0.5);
+    }else{
+        gross = Math.floor((wordsTyped/5));
+    }
+    grossWPM.innerText = gross;
     for (let i = 0; i < wordInfo.length; i++) {
         wordInfo[i].innerText = info[i];
     }

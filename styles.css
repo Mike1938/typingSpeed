@@ -1,6 +1,64 @@
-.wordVerfiy{
-    font-size: 3rem;
+body, html{
+    background-color: rgb(59, 57, 57);
+    color: #ffff;
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+header h1{
+    font-size: 3rem;
+    font-weight: 300px;
+    text-align: center;
+
+}
+#textBlock{
+    width: 80%;
+    margin: 0 auto;
+    font-size: 2rem;
+    background-color: rgba(241, 141, 141, 0.76);
+    padding: 20px;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+#gameSec{
+    margin-top: 10px;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 80% 10%;
+    gap: 10px;
+    justify-content: space-around;
+    align-items: center;
+}
+#inputArea{
+    text-align: center;
+    width: 100%;
+}
+#textInput{
+    height: 40px;
+    width: 50%;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-indent: 8px;
+
+}
+#timer{
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    font-size: 1rem;
+}
+#time{
+    text-align: center;
+    font-size: 2rem;
+}
+#clock{
+    margin-top: 10px;
+}
+#resetBtn{
+    height: 40px;
+    width: 60px;
+    text-align: center;
+}
+
 .correct{
     color: green;
 }
@@ -8,5 +66,6 @@
     color: red;
 }
 .next{
-    background-color: bisque;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
 }
