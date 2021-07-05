@@ -8,7 +8,7 @@ const displayedWords = document.getElementsByClassName("wordVerfiy");
 const resetBtn = document.querySelector("#resetBtn");
 const grossWPM = document.querySelector("#grossWPM");
 let countLocal = 0;
-let wordsTyped = 0;
+let charatersTyped = 0;
 let correctWords = 0;
 let incorrectWords = 0;
 let startGame = false;
@@ -36,12 +36,12 @@ const nextWord = () => {
     textInput.value = "";
 }
 const results = () => {
-    const info = [correctWords, incorrectWords, wordsTyped];
+    const info = [correctWords, incorrectWords, charatersTyped];
     let gross = "";
-    if(secInputs.value === 30){
-        gross = Math.floor((wordsTyped/5)/0.5);
-    }else{
-        gross = Math.floor((wordsTyped/5));
+    if (secInputs.value === "30") {
+        gross = Math.floor((charatersTyped / 5) / 0.5);
+    } else {
+        gross = Math.floor((charatersTyped / 5));
     }
     grossWPM.innerText = gross;
     for (let i = 0; i < wordInfo.length; i++) {
@@ -80,17 +80,17 @@ const checkWord = (word, count = countLocal, spaceHit = false) => {
         } else {
             incorrectWords++
         }
-        wordsTyped++;
         nextWord();
     } else if (spanWords.substring(0, letter) !== trimedWord) {
         displayedWords[count].classList.add("incorrect");
     } else {
+        charatersTyped++;
         displayedWords[count].classList.remove("incorrect");
     }
 }
 const reset = () => {
     countLocal = 0;
-    wordsTyped = 0;
+    charatersTyped = 0;
     correctWords = 0;
     incorrectWords = 0;
     counting = secInputs.value;
