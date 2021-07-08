@@ -3,10 +3,15 @@ const textInput = document.querySelector("#textInput");
 const secInputs = document.getElementById("timer");
 const timeBlock = document.getElementById("time");
 const wordInfo = document.querySelectorAll(".info")
+const next = document.getElementsByClassName("next");
 const clock = document.querySelector("#clock");
 const displayedWords = document.getElementsByClassName("wordVerfiy");
+const correct = document.getElementsByClassName("correct");
+const incorrect = document.getElementsByClassName("incorrect");
 const resetBtn = document.querySelector("#resetBtn");
 const grossWPM = document.querySelector("#grossWPM");
+let nextLocal = 0;
+let screenSize = textBlock.offsetWidth;
 let countLocal = 0;
 let charatersTyped = 0;
 let correctWords = 0;
@@ -19,11 +24,19 @@ const randomNum = (num) => {
 }
 clock.innerText = counting;
 const nextWord = () => {
-    const allWords = displayedWords.length
-    if (allWords === countLocal) {
-        textBlock.innerHTML = '';
+    nextLocal += next[0].offsetWidth;
+    let doneWords = incorrect.length + correct.length;
+    console.log(nextLocal);
+    console.log(screenSize)
+    console.log(doneWords);
+    let allWords = displayedWords.length
+    if ((screenSize - 40) <= nextLocal + 40) {
+        for (let i = doneWords - 1; i >= 0; i--) {
+            displayedWords[i].remove();
+        }
+        nextLocal = 0;
         countLocal = 0;
-        insertWord();
+        insertWord(doneWords);
     }
     displayedWords[countLocal].classList.add("next");
     try {
@@ -94,6 +107,7 @@ const reset = () => {
     charatersTyped = 0;
     correctWords = 0;
     incorrectWords = 0;
+    nextLocal = 0;
     counting = secInputs.value;
     results();
     startGame = false;
@@ -123,8 +137,18 @@ textInput.addEventListener("input", function (e) {
     }
 });
 
-const insertWord = () => {
-    for (let i = 0; i < 20; i++) {
+const insertWord = (addWords = 0) => {
+    let wordInsert;
+    if (addWords === 0) {
+        if (screenSize > 1000) {
+            wordInsert = 30;
+        } else {
+            wordInsert = 20;
+        }
+    } else {
+        wordInsert = addWords;
+    }
+    for (let i = 0; i < wordInsert; i++) {
         let spanCreate = document.createElement("span");
         spanCreate.innerText = ` ${words[randomNum(words.length)]}`;
         spanCreate.classList.add("wordVerfiy");
@@ -133,3 +157,7 @@ const insertWord = () => {
     displayedWords[countLocal].classList.add("next");
 }
 insertWord()
+window.addEventListener('resize', () => {
+    screenSize = textBlock.offsetWidth;
+    setTimeout(reset, 1000)
+})
