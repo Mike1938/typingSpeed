@@ -79,6 +79,7 @@ const checkWord = (word, count = countLocal, spaceHit = false) => {
             }
         } else {
             incorrectWords++
+            displayedWords[count].classList.add("incorrect");
         }
         nextWord();
     } else if (spanWords.substring(0, letter) !== trimedWord) {
