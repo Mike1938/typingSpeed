@@ -9,7 +9,7 @@ const displayedWords = document.getElementsByClassName("wordVerfiy");
 const correct = document.getElementsByClassName("correct");
 const incorrect = document.getElementsByClassName("incorrect");
 const resetBtn = document.querySelector("#resetBtn");
-const grossWPM = document.querySelector("#grossWPM");
+const netWPM = document.querySelector("#netWPM");
 let nextLocal = 0;
 let screenSize = textBlock.offsetWidth;
 let countLocal = 0;
@@ -26,11 +26,7 @@ clock.innerText = counting;
 const nextWord = () => {
     nextLocal += next[0].offsetWidth;
     let doneWords = incorrect.length + correct.length;
-    console.log(nextLocal);
-    console.log(screenSize)
-    console.log(doneWords);
-    let allWords = displayedWords.length
-    if ((screenSize - 40) <= nextLocal + 40) {
+    if (screenSize <= nextLocal) {
         for (let i = doneWords - 1; i >= 0; i--) {
             displayedWords[i].remove();
         }
@@ -49,14 +45,15 @@ const nextWord = () => {
     textInput.value = "";
 }
 const results = () => {
-    const info = [correctWords, incorrectWords, charatersTyped];
+    let totalWords = correctWords + incorrectWords;
+    const info = [totalWords, correctWords, incorrectWords, charatersTyped];
     let gross = "";
     if (secInputs.value === "30") {
         gross = Math.floor((charatersTyped / 5) / 0.5);
     } else {
         gross = Math.floor((charatersTyped / 5));
     }
-    grossWPM.innerText = gross;
+    netWPM.innerText = gross;
     for (let i = 0; i < wordInfo.length; i++) {
         wordInfo[i].innerText = info[i];
     }

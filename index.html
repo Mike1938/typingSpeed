@@ -22,22 +22,25 @@
     <section id="gameSec">
         <div id="inputArea">
             <input id="textInput" type="text" autocomplete="off">
+        </div>
+        <div id="options">
             <select name="timer" id="timer">
                 <option value="60" selected>60</option>
                 <option value="30">30</option>
             </select>
             <button id="resetBtn">Reset</button>
         </div>
+    </section>
+    <div id="results">
         <div id="time">
             <p id="clock"></p>
         </div>
-    </section>
-    <div id="results">
-        <h3>Gross WPM: <span id="grossWPM"></span></h3>
+        <h3>Net WPM: <span id="netWPM">0</span></h3>
         <ul>
-            <li>Correct Words: <span class="info"></span></li>
-            <li>Incorrect Words: <span class="info"></span></li>
-            <li>Words Type: <span class="info"></span></li>
+            <li>Words Type: <span class="info">0</span></li>
+            <li>Correct Words: <span class="info">0</span></li>
+            <li>Incorrect Words: <span class="info">0</span></li>
+            <li>Characters typed: <span class="info">0</span></li>
         </ul>
     </div>
 
