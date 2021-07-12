@@ -11,7 +11,7 @@ const incorrect = document.getElementsByClassName("incorrect");
 const resetBtn = document.querySelector("#resetBtn");
 const netWPM = document.querySelector("#netWPM");
 let nextLocal = 0;
-let screenSize = textBlock.offsetWidth;
+let screenSize = textBlock.offsetWidth - 40;
 let countLocal = 0;
 let charatersTyped = 0;
 let correctWords = 0;
@@ -24,9 +24,10 @@ const randomNum = (num) => {
 }
 clock.innerText = counting;
 const nextWord = () => {
-    nextLocal += next[0].offsetWidth;
+    displayedWords[countLocal].classList.add("next");
+    nextLocal += displayedWords[countLocal - 1].offsetWidth;
     let doneWords = incorrect.length + correct.length;
-    if (screenSize <= nextLocal) {
+    if (nextLocal + next[1].offsetWidth >= screenSize) {
         for (let i = doneWords - 1; i >= 0; i--) {
             displayedWords[i].remove();
         }
@@ -34,7 +35,6 @@ const nextWord = () => {
         countLocal = 0;
         insertWord(doneWords);
     }
-    displayedWords[countLocal].classList.add("next");
     try {
         if (displayedWords[countLocal - 1].classList.contains("next")) {
             displayedWords[countLocal - 1].classList.remove("next");
@@ -138,9 +138,9 @@ const insertWord = (addWords = 0) => {
     let wordInsert;
     if (addWords === 0) {
         if (screenSize > 1000) {
-            wordInsert = 30;
+            wordInsert = 25;
         } else {
-            wordInsert = 20;
+            wordInsert = 15;
         }
     } else {
         wordInsert = addWords;
