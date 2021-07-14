@@ -35,13 +35,10 @@ const nextWord = () => {
         countLocal = 0;
         insertWord(doneWords);
     }
-    try {
-        if (displayedWords[countLocal - 1].classList.contains("next")) {
-            displayedWords[countLocal - 1].classList.remove("next");
-        }
-    } catch {
-        console.log("No Words");
+    if (countLocal - 1 >= 0) {
+        displayedWords[countLocal - 1].classList.remove("next");
     }
+
     textInput.value = "";
 }
 const results = () => {
