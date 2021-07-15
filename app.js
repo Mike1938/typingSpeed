@@ -11,7 +11,8 @@ const incorrect = document.getElementsByClassName("incorrect");
 const resetBtn = document.querySelector("#resetBtn");
 const netWPM = document.querySelector("#netWPM");
 let nextLocal = 0;
-let screenSize = textBlock.offsetWidth - 40;
+let textBlockWidth = textBlock.offsetWidth - 40;
+let textBlockHeight = textBlock.offsetHeight - 40;
 let countLocal = 0;
 let charatersTyped = 0;
 let correctWords = 0;
@@ -27,13 +28,13 @@ const nextWord = () => {
     displayedWords[countLocal].classList.add("next");
     nextLocal += displayedWords[countLocal - 1].offsetWidth;
     let doneWords = incorrect.length + correct.length;
-    if (nextLocal + next[1].offsetWidth >= screenSize) {
+    if (nextLocal + next[1].offsetWidth >= textBlockWidth) {
         for (let i = doneWords - 1; i >= 0; i--) {
             displayedWords[i].remove();
         }
         nextLocal = 0;
         countLocal = 0;
-        insertWord(doneWords);
+        insertWord(true);
     }
     if (countLocal - 1 >= 0) {
         displayedWords[countLocal - 1].classList.remove("next");
@@ -131,27 +132,27 @@ textInput.addEventListener("input", function (e) {
     }
 });
 
-const insertWord = (addWords = 0) => {
-    let wordInsert;
-    if (addWords === 0) {
-        if (screenSize > 1000) {
-            wordInsert = 25;
-        } else {
-            wordInsert = 15;
-        }
-    } else {
-        wordInsert = addWords;
-    }
-    for (let i = 0; i < wordInsert; i++) {
+const insertWord = (addWords = false) => {
+    let wordSize = 0;
+    let wordInsert = addWords;
+    do {
         let spanCreate = document.createElement("span");
         spanCreate.innerText = ` ${words[randomNum(words.length)]}`;
         spanCreate.classList.add("wordVerfiy");
         textBlock.append(spanCreate);
-    }
+        if (wordInsert) {
+            for (let i = 0; i < displayedWords.length; i++) {
+                wordSize = wordSize + (displayedWords[i].offsetHeight * displayedWords[i].offsetWidth);
+            }
+            wordInsert = false;
+        } else {
+            wordSize = wordSize + (spanCreate.offsetHeight * spanCreate.offsetWidth);
+        }
+    } while (textBlockWidth * textBlockHeight > wordSize + 20000);
     displayedWords[countLocal].classList.add("next");
 }
 insertWord()
 window.addEventListener('resize', () => {
-    screenSize = textBlock.offsetWidth;
+    textBlockWidth = textBlock.offsetWidth;
     setTimeout(reset, 1000)
 })

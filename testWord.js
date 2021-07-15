@@ -208,7 +208,7 @@ const words = [
     "girl",
     "enough",
     "young",
-    "usal",
+    "usual",
     "red",
     "green",
     "blue",
