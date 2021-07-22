@@ -11,6 +11,7 @@ const incorrect = document.getElementsByClassName("incorrect");
 const resetBtn = document.querySelector("#resetBtn");
 const netWPM = document.querySelector("#netWPM");
 let nextLocal = 0;
+let nextWordVerify = false;
 let textBlockWidth = textBlock.offsetWidth - 40;
 let textBlockHeight = textBlock.offsetHeight - 40;
 let countLocal = 0;
@@ -28,18 +29,23 @@ const nextWord = () => {
     displayedWords[countLocal].classList.add("next");
     nextLocal += displayedWords[countLocal - 1].offsetWidth;
     let doneWords = incorrect.length + correct.length;
-    if (nextLocal + next[1].offsetWidth >= textBlockWidth) {
+    if (nextLocal + next[1].offsetWidth >= textBlockWidth || nextWordVerify) {
+
         for (let i = doneWords - 1; i >= 0; i--) {
             displayedWords[i].remove();
         }
+        nextWordVerify = false;
         nextLocal = 0;
         countLocal = 0;
         insertWord(true);
+    } else {
+        if (nextLocal + displayedWords[countLocal + 1].offsetWidth >= textBlockWidth) {
+            nextWordVerify = true
+        }
     }
     if (countLocal - 1 >= 0) {
         displayedWords[countLocal - 1].classList.remove("next");
     }
-
     textInput.value = "";
 }
 const results = () => {
@@ -98,6 +104,7 @@ const checkWord = (word, count = countLocal, spaceHit = false) => {
     }
 }
 const reset = () => {
+    nextWordVerify = false;
     countLocal = 0;
     charatersTyped = 0;
     correctWords = 0;
@@ -148,7 +155,7 @@ const insertWord = (addWords = false) => {
         } else {
             wordSize = wordSize + (spanCreate.offsetHeight * spanCreate.offsetWidth);
         }
-    } while (textBlockWidth * textBlockHeight > wordSize + 20000);
+    } while (textBlockWidth * textBlockHeight > wordSize + 30000);
     displayedWords[countLocal].classList.add("next");
 }
 insertWord()
